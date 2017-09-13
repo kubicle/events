@@ -135,10 +135,9 @@ EventEmitter.prototype.addListener = function(type, listener) {
 
     if (m && m > 0 && this._events[type].length > m) {
       this._events[type].warned = true;
-      console.error('(node) warning: possible EventEmitter memory ' +
-                    'leak detected. %d listeners added for event type \'%s\' on a \'%s\'. ' +
-                    'Use emitter.setMaxListeners() to increase limit.',
-                    this._events[type].length, type, this.constructor.name);
+      console.error(new Error('(node) warning: possible EventEmitter memory leak detected. ' + m +
+                    ' listeners added for event type \'' + type +
+                    '\' on a ' + this.constructor.name));
       if (typeof console.trace === 'function') {
         // not supported in IE 10
         console.trace();
